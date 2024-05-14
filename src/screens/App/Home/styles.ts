@@ -13,7 +13,7 @@ export const Box = styled.View`
     align-items: center;
     justify-content: center;
     gap: 24px;
-    height: 60%;
+    height: 75%;
     width: 100%;
     border-top-right-radius: 24px;
     border-top-left-radius: 24px;

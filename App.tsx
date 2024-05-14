@@ -1,30 +1,44 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, Text, View } from 'react-native';
 import 'react-native-gesture-handler';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors } from './src/constants/colors';
+import Routes from './src/routes';
+import { useFonts } from 'expo-font';
+import { useCallback } from 'react';
+import * as SplashScreen from 'expo-splash-screen';
+import { ProfileProvider } from './src/contexts/profile';
+import { NotificationProvider } from './src/contexts/notification';
+
+SplashScreen.preventAutoHideAsync();
 
 export default function App() {
+  const [fontsLoaded, fontError] = useFonts({
+    'Sora-Regular': require('./src/assets/fonts/Sora-Regular.ttf'),
+    'Sora-SemiBold': require('./src/assets/fonts/Sora-SemiBold.ttf'),
+  })
+
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded || fontError) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded, fontError]);
+
+  if (!fontsLoaded && !fontError) {
+    return null;
+  }
   return (
-    <SafeAreaView
+    <View
       style={{
         flex: 1,
-        backgroundColor: colors.purple
       }}
+      onLayout={onLayoutRootView}
     >
-      <View style={styles.container}>
-        <Text>Open up App.tsx to start working on your app!</Text>
-        <StatusBar style="auto" />
-      </View>
-    </SafeAreaView>
+      <NotificationProvider>
+        <ProfileProvider>
+          <Routes />
+        </ProfileProvider>
+      </NotificationProvider>
+      <StatusBar style="light" />
+    </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

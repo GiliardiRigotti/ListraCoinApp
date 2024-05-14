@@ -7,7 +7,9 @@ const Stack = createStackNavigator();
 
 export function AuthRoutes() {
     return (
-        <Stack.Navigator>
+        <Stack.Navigator
+            screenOptions={{ headerShown: false }}
+        >
             <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="Subscribe" component={SubscribeScreen} />
             <Stack.Screen name="Forget" component={ForgetScreen} />
