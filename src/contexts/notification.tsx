@@ -6,6 +6,8 @@ import Constants from 'expo-constants';
 import { NotificationCard } from "../components/NotificationCard";
 
 interface INotificationContext {
+    expoPushToken: string
+    showNotification: (title: string, description: string) => void
 }
 
 Notifications.setNotificationHandler({
@@ -28,6 +30,13 @@ export const NotificationProvider = ({ children }: { children: React.ReactNode }
     >(undefined);
     const notificationListener = useRef<Notifications.Subscription>();
     const responseListener = useRef<Notifications.Subscription>();
+    const [title, setTitle] = useState<string>()
+    const [description, setDescription] = useState<string>()
+
+    const showNotification = (title: string, description: string) => {
+        setTitle(title)
+        setDescription(description)
+    }
 
     useEffect(() => {
         registerForPushNotificationsAsync().then(
@@ -60,17 +69,14 @@ export const NotificationProvider = ({ children }: { children: React.ReactNode }
     }, []);
 
     return (
-        <NotificationContext.Provider value={{}}>
+        <NotificationContext.Provider value={{ expoPushToken, showNotification }}>
             {children}
-            <NotificationCard>
-                <View
-                    style={{
+            {title &&
+                <NotificationCard>
+                    <Text>{title}</Text>
+                </NotificationCard>
+            }
 
-                    }}
-                >
-                    <Text>Oi</Text>
-                </View>
-            </NotificationCard>
 
         </NotificationContext.Provider>
     )
