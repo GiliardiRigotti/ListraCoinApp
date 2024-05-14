@@ -28,8 +28,15 @@
         "expo-font",
         {
           "fonts": [
-            "./src/assets/fonts/Sora-Regular.ttf"
+            "./src/assets/fonts/Sora-Regular.ttf",
+            "./src/assets/fonts/Sora-SemiBold.ttf"
           ]
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos."
         }
       ]
     ]
