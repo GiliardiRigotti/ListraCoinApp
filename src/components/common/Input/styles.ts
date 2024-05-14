@@ -4,7 +4,7 @@ import { colors } from "../../../constants/colors";
 
 export const Container = styled.View`
     height: 80px;
-    width: 80%;
+    width: 100%;
     flex-direction: row;
     border-radius: 24px;
     align-items: center;

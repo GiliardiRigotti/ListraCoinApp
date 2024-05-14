@@ -8,6 +8,7 @@ import { useCallback } from 'react';
 import * as SplashScreen from 'expo-splash-screen';
 import { ProfileProvider } from './src/contexts/profile';
 import { NotificationProvider } from './src/contexts/notification';
+import { ToastSheetProvider } from './src/contexts/toastSheet';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -34,9 +35,11 @@ export default function App() {
       onLayout={onLayoutRootView}
     >
       <NotificationProvider>
-        <ProfileProvider>
-          <Routes />
-        </ProfileProvider>
+        <ToastSheetProvider>
+          <ProfileProvider>
+            <Routes />
+          </ProfileProvider>
+        </ToastSheetProvider>
       </NotificationProvider>
       <StatusBar style="light" />
     </View>

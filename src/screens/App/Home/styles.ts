@@ -17,6 +17,8 @@ export const Box = styled.View`
     width: 100%;
     border-top-right-radius: 24px;
     border-top-left-radius: 24px;
+    padding-top: 40px;
+    padding-bottom: 16px;
 `
 
 export const TitleBox = styled.Text`

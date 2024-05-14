@@ -4,6 +4,7 @@ import { AppRoutes } from './app.routes';
 import { AuthRoutes } from './auth.routes';
 import { useProfile } from '../contexts/profile';
 import { CartProvider } from '../contexts/cart';
+import { ShopProvider } from '../contexts/shop';
 
 export default function Routes() {
     const { user } = useProfile()
@@ -11,9 +12,11 @@ export default function Routes() {
         <NavigationContainer>
             {
                 !!user ?
-                    <CartProvider>
-                        <AppRoutes />
-                    </CartProvider>
+                    <ShopProvider>
+                        <CartProvider>
+                            <AppRoutes />
+                        </CartProvider>
+                    </ShopProvider>
                     :
                     <AuthRoutes />
             }

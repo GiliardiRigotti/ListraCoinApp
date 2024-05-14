@@ -8,7 +8,7 @@ export interface ISignUp extends ISignIn {
 }
 
 export interface IUser extends ISignUp {
-    id: string
+    id?: string
     saldo: number
     dataCadastro: string
     avatar: string

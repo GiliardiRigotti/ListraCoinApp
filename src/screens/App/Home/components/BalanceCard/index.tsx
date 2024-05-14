@@ -13,7 +13,7 @@ export function BalanceCard() {
             <Wrapper>
                 <Icon iconName={IconNames.WALLET_ICON} />
                 <BalanceSymbol>Lc</BalanceSymbol>
-                <BalanceValue>{user?.saldo.toFixed(2)}</BalanceValue>
+                <BalanceValue>{user.saldo ? user?.saldo.toFixed(2) : 0}</BalanceValue>
             </Wrapper>
             <Separator />
             <Wrapper>

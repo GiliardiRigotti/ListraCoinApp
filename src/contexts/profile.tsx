@@ -1,19 +1,22 @@
-import React, { createContext, useContext, useEffect, useRef, useState } from "react";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { store } from "../services/storage";
 import { ISignIn, ISignUp, IUser } from "../interfaces/user";
+import { api, urls } from "../services/api";
+import { useToastNotification } from "./toastSheet";
+import { useNavigation } from "@react-navigation/native";
 
 interface IProfileContext {
     isLoading: boolean
     user: IUser | null
     signIn: (form: ISignIn) => Promise<void>
-    signUp: (form: ISignUp) => Promise<void>
+    signUp: (form: ISignUp) => Promise<boolean>
     signOut: () => void
 }
 
 const ProfileContext = createContext({} as IProfileContext)
 
 export const ProfileProvider = ({ children }: { children: React.ReactNode }) => {
+    const { showNotification } = useToastNotification()
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [user, setUser] = useState<IUser | null>(null)
 
@@ -21,15 +24,17 @@ export const ProfileProvider = ({ children }: { children: React.ReactNode }) => 
     const signIn = async (form: ISignIn) => {
         setIsLoading(true)
         try {
-            setUser({
-                avatar: 'https://www.rbsdirect.com.br/filestore/5/6/3/2/4/1/1_be403567a91f164/1142365_f1683261841dd35.jpg?version=1575255600',
-                nome: 'Giliardi',
-                saldo: 10000,
-                dataCadastro: '26/10/2023',
-                id: 'asdasd156+156asd',
-                ...form
-            })
+            const { data } = await api.get<IUser[]>(urls.user)
+            const findUser = data.find(item => item.email === form.email)
+            if (!findUser) throw new Error('Verificar e-mail ou senha se foram digitados corretamente')
+            if (findUser?.senha == form.senha) {
+                setUser(findUser)
+                store.set('User', findUser)
+                return
+            }
+            throw new Error('Verificar e-mail ou senha se foram digitados corretamente')
         } catch (error) {
+            showNotification('Aviso', error as string)
         } finally {
             setIsLoading(false)
         }
@@ -38,7 +43,18 @@ export const ProfileProvider = ({ children }: { children: React.ReactNode }) => 
     const signUp = async (form: ISignUp) => {
         setIsLoading(true)
         try {
+            const newUser: IUser = {
+                dataCadastro: new Date().toISOString(),
+                saldo: 10000.00,
+                avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQA3W3oppN7sdVCsUWwwnPIn9pX6E6G2UW70w&usqp=CAU',
+                ...form
+            }
+            const { data } = await api.post(urls.user, newUser)
+            console.log(data)
+            showNotification('Aviso', 'Cadastrado com sucesso!')
+            return true
         } catch (error) {
+            return false
         } finally {
             setIsLoading(false)
         }
@@ -48,6 +64,11 @@ export const ProfileProvider = ({ children }: { children: React.ReactNode }) => 
         store.clear()
         setUser(null)
     }
+
+    useEffect(() => {
+        const storeUser: IUser = store.get('User')
+        storeUser && setUser(storeUser)
+    }, [])
 
     return (
         <ProfileContext.Provider value={{ isLoading, user, signIn, signUp, signOut }}>

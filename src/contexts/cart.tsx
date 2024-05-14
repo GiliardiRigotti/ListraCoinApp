@@ -25,6 +25,8 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
             const listCartTemp = listCart
             listCartTemp.push(item)
             setListCart(listCartTemp)
+            console.log('Cart add:')
+            console.log(listCartTemp)
             store.set('Cart', listCartTemp)
         } catch (error) {
 
@@ -38,6 +40,8 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
         try {
             const listCartTemp = listCart.filter(item => item.id !== id)
             setListCart(listCartTemp)
+            console.log('Cart remove:')
+            console.log(listCartTemp)
             store.set('Cart', listCartTemp)
         } catch (error) {
 

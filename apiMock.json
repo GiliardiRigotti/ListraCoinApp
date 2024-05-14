@@ -1,0 +1,56 @@
+{
+  "usuarios": [
+    {
+      "id": "8efe",
+      "dataCadastro": "2024-05-14T18:27:18.856Z",
+      "saldo": 10000,
+      "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQA3W3oppN7sdVCsUWwwnPIn9pX6E6G2UW70w&usqp=CAU",
+      "email": "Teste@teste.com",
+      "senha": "senha123",
+      "nome": "Giliardi"
+    }
+  ],
+  "produtos": [
+    {
+      "id": "3cec665f-59b3-4983-8085-c745db14d36c",
+      "nome": "Headset Gamer",
+      "descricao": "Fone muito bom para jogos",
+      "preco": 82.34,
+      "quantidade": 15,
+      "imagem": "https://m.media-amazon.com/images/I/419CrfhiF8L._SR480,440_.jpg",
+      "categoria": "informatica",
+      "dataCadastro": "2024-05-14T13:28:21.654Z"
+    },
+    {
+      "id": "b83c1378-377c-447a-8734-cc7825c974b5",
+      "nome": "Mouse",
+      "descricao": "Mouse generico para o dia a dia",
+      "preco": 35.54,
+      "quantidade": 15,
+      "imagem": "https://m.media-amazon.com/images/I/41HvVIUSKKL._SR480,440_.jpg",
+      "categoria": "informatica",
+      "dataCadastro": "2024-05-14T13:28:21.654Z"
+    },
+    {
+      "id": "964d40f7-5e9e-4c07-bf66-bcbb0e594501",
+      "nome": "Pacote Office",
+      "descricao": "Vem Word, Excel, Power Point, Acess, Publisher e Outlook",
+      "preco": 500,
+      "quantidade": 15,
+      "imagem": "https://m.media-amazon.com/images/I/41771woN99L._SR480,440_.jpg",
+      "categoria": "informatica",
+      "dataCadastro": "2024-05-14T13:28:21.654Z"
+    },
+    {
+      "id": "c1ca6c7a-9b38-49b7-b9e6-b78c40cd6913",
+      "nome": "Impressora a tinta",
+      "descricao": "Impressora que depois de 6 cartuchos saiu mais caro que a propria impressora",
+      "preco": 250.6,
+      "quantidade": 15,
+      "imagem": "https://m.media-amazon.com/images/I/31hXm10wnkL._SR480,440_.jpg",
+      "categoria": "informatica",
+      "dataCadastro": "2024-05-14T13:28:21.654Z"
+    }
+  ],
+  "compras": []
+}

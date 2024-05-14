@@ -1,7 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import { LoginScreen } from '../screens/Auth/Login';
 import { SubscribeScreen } from '../screens/Auth/Subscribe';
-import { ForgetScreen } from '../screens/Auth/Forget';
+import { ResetPassword } from '../screens/Auth/ResetPassword';
 
 const Stack = createStackNavigator();
 
@@ -12,7 +12,7 @@ export function AuthRoutes() {
         >
             <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="Subscribe" component={SubscribeScreen} />
-            <Stack.Screen name="Forget" component={ForgetScreen} />
+            <Stack.Screen name="ResetPassword" component={ResetPassword} />
         </Stack.Navigator>
     );
 }
