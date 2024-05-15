@@ -11,8 +11,6 @@ interface Props {
 export default ({ iconName, width = 24, height = 24, color }: Props) => {
     const I = IconFiles[`${iconName}`];
     return (
-        <I width={width} height={height} style={{
-            color: color
-        }} />
+        <I width={width} height={height} />
     );
 };

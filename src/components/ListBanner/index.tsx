@@ -10,7 +10,7 @@ export function ListBanner() {
             renderItem={() => (
                 <BannerCard />
             )}
-            showsHorizontalScrollIndicator
+            showsHorizontalScrollIndicator={false}
             contentContainerStyle={{
                 paddingTop: 20,
                 gap: 5

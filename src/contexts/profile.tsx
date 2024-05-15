@@ -95,7 +95,6 @@ export const ProfileProvider = ({ children }: { children: React.ReactNode }) => 
             console.log(storeUser)
             storeUser && setUser(storeUser)
         })()
-
     }, [])
 
     return (
