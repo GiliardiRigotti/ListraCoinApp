@@ -1,28 +1,21 @@
 import React from "react";
 import { ListItems } from "./styles";
-import { ShopCard } from "../ShopCard";
-import { IProduct } from "../../interfaces/shop";
 import { BannerCard } from "../BannerCard";
 
-interface Props {
-    data: IProduct[]
-}
 
-export function ListBanner({ data }: Props) {
+export function ListBanner() {
     return (
         <ListItems
-            data={data}
-            renderItem={({ item }) => (
-                <BannerCard product={item} />
+            data={[1, 2, 3, 4]}
+            renderItem={() => (
+                <BannerCard />
             )}
+            showsHorizontalScrollIndicator
             contentContainerStyle={{
                 paddingTop: 20,
-                gap: 20
+                gap: 5
             }}
-            numColumns={2}
-            columnWrapperStyle={{
-                rowGap: 20
-            }}
+            horizontal
         />
     )
 }

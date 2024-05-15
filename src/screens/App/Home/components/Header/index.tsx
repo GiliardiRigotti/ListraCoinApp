@@ -1,6 +1,6 @@
-import { IconNames } from "../../../../../../assets/icons";
-import { useProfile } from "../../../../../../contexts/profile";
-import Icon from "../../../../../../components/Icon";
+import { IconNames } from "../../../../../assets/icons";
+import { useProfile } from "../../../../../contexts/profile";
+import Icon from "../../../../../components/Icon";
 import { Avatar, ContainerHeader, ContainerHello, Hello, LogoContainer, LogoTitle, Name, Wrapper } from "./styles";
 
 export function Header() {

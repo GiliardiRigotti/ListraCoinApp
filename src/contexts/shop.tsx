@@ -20,7 +20,6 @@ export const ShopProvider = ({ children }: { children: React.ReactNode }) => {
         setIsLoading(true)
         try {
             const { data } = await api.get<IProduct[]>(urls.products)
-            console.log(data)
             setListProducts(data)
         } catch (error) {
             console.log(error)

@@ -1,9 +1,5 @@
-import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
-import { Animated, Dimensions, Platform, StyleSheet, Text, View } from "react-native";
-import * as Notifications from 'expo-notifications';
-import * as Device from 'expo-device';
-import Constants from 'expo-constants';
-import { NotificationCard } from "../components/NotificationCard";
+import React, { createContext, useContext, useEffect, useRef, useState } from "react";
+import { Animated, Dimensions, StyleSheet, Text } from "react-native";
 import { colors } from "../constants/colors";
 import { globalStyle } from "../styles/global";
 import { ContainerNotification } from "../components/NotificationCard/styles";
@@ -23,53 +19,74 @@ export const ToastSheetProvider = ({ children }: { children: React.ReactNode }) 
     const [title, setTitle] = useState<string>()
     const [description, setDescription] = useState<string>()
 
-    const showNotification = useCallback((title: string, description: string) => {
+    const showNotification = (title: string, description: string) => {
         setTitle(title)
         setDescription(description)
-        Animated.sequence([
-            Animated.timing(fadeAnim, {
-                toValue: height - 100,
-                duration: 2000,
-                useNativeDriver: false,
-            }),
-            Animated.timing(progress, {
-                toValue: 0,
-                duration: 2000,
-                useNativeDriver: false,
-            }),
-            Animated.timing(fadeAnim, {
-                toValue: height,
-                duration: 2000,
-                useNativeDriver: false,
-            }),
-            Animated.timing(progress, {
-                toValue: widthBar - 48,
-                duration: 2000,
-                useNativeDriver: false,
-            }),
-        ]).start()
-    }, [])
 
+    }
+
+    useEffect(() => {
+        if (!!title && !!description) {
+            console.log(title, description)
+            Animated.sequence([
+                Animated.timing(fadeAnim, {
+                    toValue: height - 100,
+                    duration: 2000,
+                    useNativeDriver: false,
+                }),
+                Animated.timing(progress, {
+                    toValue: 0,
+                    duration: 2000,
+                    useNativeDriver: false,
+                }),
+                Animated.timing(fadeAnim, {
+                    toValue: height,
+                    duration: 2000,
+                    useNativeDriver: false,
+                }),
+                Animated.timing(progress, {
+                    toValue: widthBar - 48,
+                    duration: 2000,
+                    useNativeDriver: false,
+                }),
+            ]).start()
+        }
+    }, [title, description])
 
 
     return (
         <ToastSheetContext.Provider value={{ showNotification }}>
             {children}
+            {
+                title && description && (
+                    <Animated.View
+                        style={[styles.container, globalStyle.shadow, {
+                            width: widthBar,
+                            transform: [{
+                                translateY: fadeAnim
+                            }]
+                        }]}>
+                        <ContainerNotification>
+                            <Text
+                                style={{
+                                    fontFamily: 'Sora-Semibold',
+                                    fontSize: 16,
+                                    color: colors.black
+                                }}
+                            >{title}</Text>
+                            <Text
+                                style={{
+                                    fontFamily: 'Sora-Regular',
+                                    fontSize: 10,
+                                    color: colors.grey
+                                }}
+                            >{description}</Text>
+                        </ContainerNotification>
+                        <Animated.View style={[styles.bar, { width: progress }]} />
+                    </Animated.View>
+                )
+            }
 
-            <Animated.View
-                style={[styles.container, globalStyle.shadow, {
-                    width: widthBar,
-                    transform: [{
-                        translateY: fadeAnim
-                    }]
-                }]}>
-                <ContainerNotification>
-                    <NotificationCard>
-                        <Text>{title}</Text>
-                    </NotificationCard>
-                </ContainerNotification>
-                <Animated.View style={[styles.bar, { width: progress }]} />
-            </Animated.View>
         </ToastSheetContext.Provider>
     )
 }

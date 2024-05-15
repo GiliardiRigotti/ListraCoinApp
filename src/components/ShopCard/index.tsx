@@ -21,10 +21,9 @@ export function ShopCard({ product }: Props) {
         if (!inCart) {
             addItemCart(product)
             setInCart(true)
+            showNotification(`O ${product.nome} está à caminho! 🥳`, '🎁 Parabéns, sua compra foi confirmada!')
             return
         }
-        removeItemCart(product.id)
-        setInCart(false)
     }
 
     return (
@@ -32,7 +31,8 @@ export function ShopCard({ product }: Props) {
             style={globalStyle.shadow}
         >
             <ImageCard
-                source={{ uri: product.image }}
+                source={{ uri: product.imagem }}
+                resizeMode='contain'
             />
             <SubContainerCard>
                 <HeaderCard>

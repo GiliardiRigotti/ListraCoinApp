@@ -6,59 +6,18 @@ import { useToastNotification } from "../../contexts/toastSheet";
 import { IProduct } from "../../interfaces/shop";
 import { globalStyle } from "../../styles/global";
 import { ButtonActionCard } from "./components/ButtonActionCard";
-import { ContainerCard, DescriptionCard, FooterCard, HeaderCard, ImageCard, PriceCard, SubContainerCard, TitleCard, ValueCard, ValueSymbolCard } from "./styles";
+import { ContainerCard, ImageCard } from "./styles";
 
 interface Props {
     product: IProduct
 }
 
-export function ShopCard({ product }: Props) {
-    const { showNotification } = useToastNotification()
-    const { addItemCart, removeItemCart, isLoading } = useCart()
-    const [inCart, setInCart] = useState(false)
+export function BannerCard() {
 
-    const handleInCart = () => {
-        if (!inCart) {
-            addItemCart(product)
-            setInCart(true)
-            return
-        }
-        removeItemCart(product.id)
-        setInCart(false)
-    }
 
     return (
-        <ContainerCard
-            style={globalStyle.shadow}
-        >
-            <ImageCard
-                source={{ uri: product.image }}
-            />
-            <SubContainerCard>
-                <HeaderCard>
-                    <TitleCard>
-                        {product.nome}
-                    </TitleCard>
-                    <DescriptionCard>
-                        {product.quantidade} unidades
-                    </DescriptionCard>
-                </HeaderCard>
-                <FooterCard>
-                    <PriceCard>
-                        <ValueSymbolCard>
-                            Lc
-                        </ValueSymbolCard>
-                        <ValueCard>
-                            {product.preco.toFixed(2)}
-                        </ValueCard>
-                    </PriceCard>
-                    <ButtonActionCard
-                        onPress={handleInCart}
-                        inCart={inCart}
-                        isLoading={isLoading}
-                    />
-                </FooterCard>
-            </SubContainerCard>
-        </ContainerCard>
+        <ImageCard
+            source={require('../../assets/imgs/banner.png')}
+        />
     )
 }

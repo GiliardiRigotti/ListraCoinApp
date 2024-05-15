@@ -1,4 +1,5 @@
 import { StackNavigationProp } from "@react-navigation/stack"
+import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs"
 
 type IRootStack = {
     Login: undefined,
@@ -7,3 +8,11 @@ type IRootStack = {
 }
 
 export type StackRoutes = StackNavigationProp<IRootStack>
+
+type IRootTab = {
+    HomeScreen: undefined,
+    ShopScreen: undefined,
+    ProfileScreen: undefined
+}
+
+export type TabRoutes = BottomTabNavigationProp<IRootTab>

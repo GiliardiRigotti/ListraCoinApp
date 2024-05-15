@@ -4,10 +4,12 @@ import { ISignIn, ISignUp, IUser } from "../interfaces/user";
 import { api, urls } from "../services/api";
 import { useToastNotification } from "./toastSheet";
 import { useNavigation } from "@react-navigation/native";
+import { Alert } from "react-native";
 
 interface IProfileContext {
     isLoading: boolean
     user: IUser | null
+    updateUser: (editUser: IUser) => void
     signIn: (form: ISignIn) => Promise<void>
     signUp: (form: ISignUp) => Promise<boolean>
     signOut: () => void
@@ -20,6 +22,12 @@ export const ProfileProvider = ({ children }: { children: React.ReactNode }) => 
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [user, setUser] = useState<IUser | null>(null)
 
+    useEffect(() => { console.log(user) }, [user])
+
+    const updateUser = async (editUser: IUser) => {
+        setUser(editUser)
+        await store.set('User', editUser)
+    }
 
     const signIn = async (form: ISignIn) => {
         setIsLoading(true)
@@ -28,8 +36,9 @@ export const ProfileProvider = ({ children }: { children: React.ReactNode }) => 
             const findUser = data.find(item => item.email === form.email)
             if (!findUser) throw new Error('Verificar e-mail ou senha se foram digitados corretamente')
             if (findUser?.senha == form.senha) {
+                console.log(findUser)
                 setUser(findUser)
-                store.set('User', findUser)
+                await store.set('User', findUser)
                 return
             }
             throw new Error('Verificar e-mail ou senha se foram digitados corretamente')
@@ -50,7 +59,6 @@ export const ProfileProvider = ({ children }: { children: React.ReactNode }) => 
                 ...form
             }
             const { data } = await api.post(urls.user, newUser)
-            console.log(data)
             showNotification('Aviso', 'Cadastrado com sucesso!')
             return true
         } catch (error) {
@@ -61,17 +69,37 @@ export const ProfileProvider = ({ children }: { children: React.ReactNode }) => 
     }
 
     const signOut = () => {
-        store.clear()
-        setUser(null)
+        Alert.alert('Aviso!', 'Você esta saindo da sua conta, tem certeza?',
+            [
+                {
+                    text: 'Não',
+                    onPress: () => { },
+                    style: 'cancel',
+                },
+                {
+                    text: 'Sim',
+                    onPress: async () => {
+                        await store.clear()
+                        setUser(null)
+                    },
+                },
+            ],
+            { cancelable: false },
+        )
+
     }
 
     useEffect(() => {
-        const storeUser: IUser = store.get('User')
-        storeUser && setUser(storeUser)
+        (async () => {
+            const storeUser: IUser | null = await store.get('User')
+            console.log(storeUser)
+            storeUser && setUser(storeUser)
+        })()
+
     }, [])
 
     return (
-        <ProfileContext.Provider value={{ isLoading, user, signIn, signUp, signOut }}>
+        <ProfileContext.Provider value={{ isLoading, user, signIn, signUp, signOut, updateUser }}>
             {children}
         </ProfileContext.Provider>
     )

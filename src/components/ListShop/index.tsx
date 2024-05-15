@@ -15,13 +15,9 @@ export function ListShop({ data }: Props) {
                 <ShopCard product={item} />
             )}
             contentContainerStyle={{
-                paddingTop: 20,
                 gap: 20
             }}
             numColumns={2}
-            columnWrapperStyle={{
-                rowGap: 20
-            }}
         />
     )
 }

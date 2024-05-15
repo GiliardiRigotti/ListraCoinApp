@@ -17,7 +17,7 @@ export function AppRoutes() {
             }}
         >
             <Tab.Screen
-                name="Home"
+                name="HomeScreen"
                 component={HomeScreen}
                 options={{
                     tabBarShowLabel: false,
@@ -27,7 +27,7 @@ export function AppRoutes() {
                 }}
             />
             <Tab.Screen
-                name="Shop"
+                name="ShopScreen"
                 component={ShopScreen}
                 options={{
                     tabBarShowLabel: false,
@@ -37,7 +37,7 @@ export function AppRoutes() {
                 }}
             />
             <Tab.Screen
-                name="Profile"
+                name="ProfileScreen"
                 component={ProfileScreen}
                 options={{
                     tabBarShowLabel: false,
